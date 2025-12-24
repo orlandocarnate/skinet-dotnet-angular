@@ -17,6 +17,8 @@ builder.Services.AddDbContext<StoreContext>(opt =>
 
 // Add Repository Service
 builder.Services.AddScoped<IProductRepository, ProductRepository>();
+// Add Generics
+builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
 
 // =========== Add services to the container. ================ \\
 
