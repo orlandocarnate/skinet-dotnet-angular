@@ -20,6 +20,8 @@ builder.Services.AddDbContext<StoreContext>(opt =>
 builder.Services.AddScoped<IProductRepository, ProductRepository>();
 // Add Generics
 builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
+// CORS support
+builder.Services.AddCors();
 
 // =========== Add services to the container. ================ \\
 
@@ -37,6 +39,10 @@ var app = builder.Build();
 // app.UseAuthorization();
 
 app.UseMiddleware<ExceptionMiddleware>();
+// Add cors to MW
+app.UseCors(x => x.AllowAnyHeader().AllowAnyMethod()
+    .WithOrigins("http://localhost:4200", "https://localhost:4200"));
+
 app.MapControllers();
 
 // Seed Data 
